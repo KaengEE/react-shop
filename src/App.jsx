@@ -1,8 +1,13 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import Navbar from "./components/Navbar";
 
 function App() {
-  return <div className="text-primary">헬로우 월드!</div>;
+  return (
+    <div>
+      <Navbar />
+    </div>
+  );
 }
 
 export default App;
