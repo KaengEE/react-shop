@@ -1,8 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import productService from "../../services/product.service";
+import ProductSave from "../../components/ProductSave";
 
 const Admin = () => {
   const [productList, setProductList] = useState([]);
+  const saveComponent = useRef();
+
+  //버튼 클릭시 모달창 열기
+  const createProductRequest = () => {
+    //ProductSave 모달창의 showProductModal 함수 실행
+    saveComponent.current?.showProductModal();
+  };
+
   useEffect(() => {
     productService.getAllProducts().then((response) => {
       setProductList(response.data);
@@ -18,7 +27,12 @@ const Admin = () => {
             </div>
 
             <div className="col-6 text-end">
-              <button className="btn btn-primary">새 제품</button>
+              <button
+                className="btn btn-primary"
+                onClick={createProductRequest}
+              >
+                새 제품
+              </button>
             </div>
           </div>
         </div>
@@ -50,6 +64,8 @@ const Admin = () => {
           </table>
         </div>
       </div>
+      {/* 모달창 */}
+      <ProductSave ref={saveComponent} />
     </div>
   );
 };
