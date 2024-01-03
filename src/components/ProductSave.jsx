@@ -60,6 +60,12 @@ const ProductSave = forwardRef((props, ref) => {
     });
   };
 
+  //닫기버튼
+  const closeModal = () => {
+    setShow(false);
+    setProduct(new Product("", "", 0)); //초기화
+  };
+
   return (
     <Modal show={show}>
       <form
@@ -72,7 +78,7 @@ const ProductSave = forwardRef((props, ref) => {
           <button
             type="button"
             className="btn-close"
-            onClick={() => setShow(false)}
+            onClick={closeModal}
           ></button>
         </div>
 
@@ -131,7 +137,7 @@ const ProductSave = forwardRef((props, ref) => {
           <button
             type="button"
             className="btn btn-secondary"
-            onClick={() => setShow(false)}
+            onClick={closeModal}
           >
             닫기
           </button>
