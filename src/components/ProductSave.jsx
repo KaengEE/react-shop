@@ -39,6 +39,7 @@ const ProductSave = forwardRef((props, ref) => {
         setErrorMessage("제품 저장시 에러발생!");
         console.log(err);
       });
+    setProduct(new Product("", "", 0)); //초기화
   };
 
   //입력메서드
