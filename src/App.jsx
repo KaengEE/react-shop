@@ -8,6 +8,7 @@ import Register from "./pages/register/Register";
 import NotFound from "./pages/not-found/NotFound";
 import UnAuthorized from "./pages/unauthorized/UnAuthorized";
 import Admin from "./pages/admin/Admin";
+import Profile from "./pages/profile/Profile";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/404" element={<NotFound />} />
             <Route path="/401" element={<UnAuthorized />} />
