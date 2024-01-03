@@ -1,6 +1,7 @@
 import { forwardRef, useImperativeHandle, useState } from "react";
 import Product from "../models/Product";
 import { Modal } from "react-bootstrap";
+import productService from "../services/product.service";
 
 //상품 저장 및 수정 모달창
 const ProductSave = forwardRef((props, ref) => {
@@ -20,6 +21,24 @@ const ProductSave = forwardRef((props, ref) => {
   //저장메서드
   const saveProduct = (e) => {
     e.preventDefault();
+
+    setSubmitted(true);
+
+    if (!product.name || !product.description || !product.price) {
+      return;
+    }
+
+    productService
+      .saveProduct(product)
+      .then((response) => {
+        props.onSaved(response.data); //저장데이터를 상위컴포넌트로 저장
+        setShow(false);
+        setSubmitted(false);
+      })
+      .catch((err) => {
+        setErrorMessage("제품 저장시 에러발생!");
+        console.log(err);
+      });
   };
 
   //입력메서드

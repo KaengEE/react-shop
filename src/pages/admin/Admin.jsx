@@ -12,11 +12,18 @@ const Admin = () => {
     saveComponent.current?.showProductModal();
   };
 
+  //제품 추가
+  const saveProductWatcher = (p) => {
+    const newList = productList.concat(p);
+    setProductList(newList); //제품리스트 업데이트
+  };
+
   useEffect(() => {
     productService.getAllProducts().then((response) => {
       setProductList(response.data);
     });
   }, []);
+
   return (
     <div className="container">
       <div className="card mt-5">
@@ -65,7 +72,7 @@ const Admin = () => {
         </div>
       </div>
       {/* 모달창 */}
-      <ProductSave ref={saveComponent} />
+      <ProductSave ref={saveComponent} onSaved={(p) => saveProductWatcher(p)} />
     </div>
   );
 };
