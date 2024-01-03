@@ -5,6 +5,8 @@ import Product from "../../models/Product";
 
 const Admin = () => {
   const [productList, setProductList] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const saveComponent = useRef();
   //선택한 제품
   const [selectedProduct, setSelectedProduct] = useState(
@@ -46,6 +48,21 @@ const Admin = () => {
     saveComponent.current?.showProductModal();
   };
 
+  //삭제
+  const deleteProduct = (item) => {
+    if (!window.confirm("정말로 삭제하겠습니까?")) return;
+    productService
+      .deleteProduct(item)
+      //의미 없는 _ 언더바
+      .then((_) => {
+        setProductList(productList.filter((p) => p.id !== item.id));
+      })
+      .catch((err) => {
+        setErrorMessage("삭제중 에러발생!");
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     productService.getAllProducts().then((response) => {
       setProductList(response.data);
@@ -55,6 +72,10 @@ const Admin = () => {
   return (
     <div className="container">
       <div className="card mt-5">
+        {/* 에러메시지 */}
+        {errorMessage && (
+          <div className="alert alert-danger">{errorMessage}</div>
+        )}
         <div className="card-header">
           <div className="row">
             <div className="col-6">
@@ -96,7 +117,12 @@ const Admin = () => {
                     >
                       수 정
                     </button>
-                    <button className="btn btn-danger">삭 제</button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => deleteProduct(item)}
+                    >
+                      삭 제
+                    </button>
                   </td>
                 </tr>
               ))}
