@@ -17,10 +17,26 @@ const Admin = () => {
     saveComponent.current?.showProductModal();
   };
 
-  //제품 추가
-  const saveProductWatcher = (p) => {
-    const newList = productList.concat(p);
-    setProductList(newList); //제품리스트 업데이트
+  //제품 추가 및 수정
+  const saveProductWatcher = (product) => {
+    let itemIndex = productList.findIndex((item) => item.id === product.id);
+    //수정하는 경우
+    if (itemIndex !== -1) {
+      //새 아이템으로 수정
+      const newList = productList.map((item) => {
+        //item과 product의 id가 동일하면
+        if (item.id === product.id) {
+          return product;
+        }
+        return item;
+      });
+      //제품 리스트에 저장
+      setProductList(newList);
+    } else {
+      //제품 새로 저장하는 경우
+      const newList = productList.concat(product);
+      setProductList(newList); //제품 리스트 업데이트
+    }
   };
 
   //수정 모달창
