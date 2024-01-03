@@ -27,7 +27,7 @@ const Register = () => {
   //입력이벤트
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
+    //console.log(name, value);
     setUser((prevState) => {
       return {
         ...prevState,
@@ -54,7 +54,7 @@ const Register = () => {
       })
       //실패시 에러메시지표시
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
         if (error?.response?.status === 409) {
           setErrorMessage("같은 유저네임이 있습니다.");
         } else {
