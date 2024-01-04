@@ -29,6 +29,8 @@ const Profile = () => {
       .then(() => {
         //성공시 세션 클리어
         dispatch(clearCurrentUser());
+        //성공시 로그인페이지로 이동
+        window.location.href = "/login";
       })
       .catch((err) => {
         setErrorMessage("예기치 않은 에러가 발생했습니다.");
