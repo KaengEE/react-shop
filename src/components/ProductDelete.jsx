@@ -1,5 +1,6 @@
 import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { Modal } from "react-bootstrap";
+import Product from "../models/Product";
 
 const ProductDelete = forwardRef((props, ref) => {
   const [show, setShow] = useState(false);
@@ -12,8 +13,15 @@ const ProductDelete = forwardRef((props, ref) => {
   }));
 
   const deleteProduct = () => {
-    props.onConfirmed();
+    props.onConfirmed(); //선택된 제품이 삭제됨
+    props.setProduct(new Product("", "", 0)); //초기화
+    setShow(false); //모달 닫기
+  };
+
+  //닫기버튼 클릭시 모달창 닫기 및 state 초기화
+  const closeModal = () => {
     setShow(false);
+    props.setProduct(new Product("", "", 0)); //초기화
   };
 
   return (
@@ -23,7 +31,7 @@ const ProductDelete = forwardRef((props, ref) => {
         <button
           type="button"
           className="btn-close"
-          onClick={() => setShow(false)}
+          onClick={closeModal}
         ></button>
       </div>
 
@@ -33,7 +41,7 @@ const ProductDelete = forwardRef((props, ref) => {
         <button
           type="button"
           className="btn btn-secondary"
-          onClick={() => setShow(false)}
+          onClick={closeModal}
         >
           취소
         </button>

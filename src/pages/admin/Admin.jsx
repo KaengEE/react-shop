@@ -53,14 +53,15 @@ const Admin = () => {
     saveComponent.current?.showProductModal();
   };
 
-  //삭제
+  //삭제 메서드
   const deleteProduct = () => {
-    if (!window.confirm("정말로 삭제하겠습니까?")) return;
+    //if (!window.confirm("정말로 삭제하겠습니까?")) return;
     productService
-      .deleteProduct(item)
+      //이미 선택된 제품
+      .deleteProduct(selectedProduct)
       //의미 없는 _ 언더바
       .then((_) => {
-        setProductList(productList.filter((p) => p.id !== item.id));
+        setProductList(productList.filter((p) => p.id !== selectedProduct.id));
       })
       .catch((err) => {
         setErrorMessage("삭제중 에러발생!");
@@ -70,7 +71,7 @@ const Admin = () => {
 
   //삭제 모달창
   const deleteProductRequest = (item) => {
-    console.log(item);
+    //console.log(item);
     setSelectedProduct(item);
     deleteComponent.current?.showDeleteModal(); //삭제모달 열기
   };
@@ -151,6 +152,7 @@ const Admin = () => {
       <ProductDelete
         ref={deleteComponent}
         onConfirmed={() => deleteProduct()}
+        setProduct={setSelectedProduct}
       />
     </div>
   );
